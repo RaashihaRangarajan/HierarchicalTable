@@ -1,10 +1,11 @@
 # Hierarchical Table Application
 
-A sophisticated React-based hierarchical table application for financial data management with automatic value calculations, proportional allocation, and professional UI design.
+A sophisticated React-based hierarchical table application for financial data management with automatic value calculations, proportional allocation, and professional UI design. Features both custom React implementation and AG Grid implementation for comparison.
 
 ## 🚀 Features
 
 ### Core Functionality
+- **Dual Implementation**: Custom React table and AG Grid implementation
 - **Hierarchical Data Structure**: Multi-level nested data with parent-child relationships
 - **Automatic Value Calculation**: Parent values automatically calculated from children
 - **Proportional Allocation**: When parent values change, children update proportionally
@@ -13,6 +14,7 @@ A sophisticated React-based hierarchical table application for financial data ma
   - **Direct Value Allocation**: Set exact values
 - **Real-time Variance Tracking**: Shows percentage changes from original values
 - **Professional UI**: Clean, modern design with responsive layout
+- **Comparison View**: Side-by-side comparison of both implementations
 
 ### Key Capabilities
 - ✅ **Smart Calculations**: Automatic parent value updates from children
@@ -21,6 +23,8 @@ A sophisticated React-based hierarchical table application for financial data ma
 - ✅ **Interactive Controls**: Intuitive input fields and allocation buttons
 - ✅ **Responsive Design**: Works seamlessly on desktop and mobile
 - ✅ **Professional Styling**: Enterprise-ready visual design
+- ✅ **AG Grid Integration**: Enterprise-grade data grid with advanced features
+- ✅ **Performance Optimized**: Both implementations optimized for speed
 
 ## 📋 Table of Contents
 
@@ -36,6 +40,15 @@ A sophisticated React-based hierarchical table application for financial data ma
 ### Prerequisites
 - Node.js (v16 or higher)
 - npm or yarn
+
+### Dependencies
+- **React 18.2.0**: Modern React with hooks
+- **TypeScript 5.2.2**: Type safety and better development experience
+- **AG Grid Community 34.2.0**: Enterprise-grade data grid
+- **AG Grid React 34.2.0**: React integration for AG Grid
+- **Vite 5.0.8**: Fast build tool and development server
+- **Vitest 1.0.0**: Modern testing framework
+- **Testing Library**: React component testing utilities
 
 ### Setup
 ```bash
@@ -60,6 +73,14 @@ npm run build
 ```
 
 ## 🎯 Usage
+
+### Navigation
+
+The application features three main views accessible via navigation buttons:
+
+1. **Custom React Table**: Pure React implementation with custom components
+2. **AG Grid Table**: Enterprise-grade AG Grid implementation
+3. **Comparison View**: Side-by-side comparison of both implementations
 
 ### Basic Usage
 
@@ -106,7 +127,7 @@ interface HierarchicalRow {
 ### Components
 
 #### `HierarchicalTable`
-Main table component that manages the hierarchical data structure.
+Custom React table component that manages the hierarchical data structure.
 
 **Props**: None (uses internal state)
 
@@ -114,9 +135,32 @@ Main table component that manages the hierarchical data structure.
 - Renders the complete table with headers
 - Manages data state and value changes
 - Handles automatic calculations
+- Custom cell renderers for allocation controls
+
+#### `AGGridTable`
+AG Grid implementation of the hierarchical table.
+
+**Props**: None (uses internal state)
+
+**Features**:
+- Enterprise-grade data grid
+- Custom cell renderers for allocation controls
+- Optimized performance with virtualization
+- Professional AG Grid styling
+
+#### `ComparisonView`
+Side-by-side comparison of both table implementations.
+
+**Props**: None
+
+**Features**:
+- Displays both implementations simultaneously
+- Feature comparison lists
+- Performance statistics
+- Implementation pros/cons
 
 #### `TableRow`
-Individual row component for each data item.
+Individual row component for the custom React table.
 
 **Props**:
 - `row: HierarchicalRow` - The data for this row
@@ -127,6 +171,16 @@ Individual row component for each data item.
 - Input field for value changes
 - Allocation buttons for different update methods
 - Variance display
+
+#### `Navigation`
+Main navigation component for switching between views.
+
+**Props**: None
+
+**Features**:
+- Tab-based navigation
+- Active state management
+- Responsive design
 
 ### Utility Functions
 
@@ -180,13 +234,17 @@ The application includes comprehensive test coverage for:
 ```
 src/
 ├── components/
-│   ├── HierarchicalTable.tsx    # Main table component
+│   ├── HierarchicalTable.tsx    # Custom React table component
+│   ├── AGGridTable.tsx          # AG Grid table component
+│   ├── ComparisonView.tsx       # Side-by-side comparison
+│   ├── Navigation.tsx           # Main navigation component
 │   ├── TableRow.tsx             # Individual row component
 │   └── *.test.tsx              # Component tests
 ├── data.ts                      # Sample data
 ├── types.ts                     # TypeScript interfaces
 ├── utils.ts                      # Utility functions
 ├── utils.test.ts                # Utility tests
+├── ag-grid-setup.ts             # AG Grid module registration
 ├── App.css                      # Styling
 └── test/
     └── setup.ts                 # Test setup
@@ -194,20 +252,32 @@ src/
 
 ### Key Design Patterns
 
-#### 1. Hierarchical Data Management
+#### 1. Dual Implementation Architecture
+- Custom React implementation for full control
+- AG Grid implementation for enterprise features
+- Shared data models and utility functions
+- Consistent user experience across both implementations
+
+#### 2. Hierarchical Data Management
 - Recursive data structure with parent-child relationships
 - Automatic value propagation from children to parents
 - Proportional allocation when parent values change
 
-#### 2. State Management
+#### 3. State Management
 - React hooks for local state management
 - Immutable updates for data integrity
 - Real-time recalculation on value changes
 
-#### 3. Component Architecture
-- Reusable TableRow component for individual rows
+#### 4. Component Architecture
+- Reusable TableRow component for custom implementation
+- Custom cell renderers for AG Grid implementation
 - Props-based communication between components
 - Clean separation of concerns
+
+#### 5. Performance Optimization
+- Memoized calculations and components
+- Optimized AG Grid configuration
+- Efficient data processing algorithms
 
 ### Data Flow
 
@@ -234,13 +304,62 @@ src/
 - **Subtotals**: Gray accent with white background
 - **Variance Indicators**: Color-coded positive/negative changes
 
+## ⚖️ Implementation Comparison
+
+### Custom React Table
+**Pros:**
+- Full control over styling and behavior
+- Lightweight bundle size (~50KB)
+- Custom animations and interactions
+- Easy to customize and extend
+- No external dependencies for table functionality
+
+**Cons:**
+- More code to maintain
+- Manual performance optimization
+- Limited built-in features
+- Custom implementation of all functionality
+
+### AG Grid Table
+**Pros:**
+- Enterprise-grade features out of the box
+- Built-in performance optimizations
+- Rich API and extensive documentation
+- Professional styling and theming
+- Advanced features like sorting, filtering, etc.
+
+**Cons:**
+- Larger bundle size (~200KB)
+- Learning curve for customization
+- External dependency
+- Less control over internal behavior
+
+### Performance Comparison
+- **Small Datasets**: Custom React performs better due to lower overhead
+- **Large Datasets**: AG Grid excels with built-in virtualization
+- **Memory Usage**: Custom React uses less memory
+- **Development Speed**: AG Grid faster for complex table features
+
 ## 🚀 Performance
 
 ### Optimizations
+
+#### Custom React Implementation
 - **Efficient Calculations**: Optimized algorithms for proportional allocation
 - **Minimal Re-renders**: React best practices for performance
-- **Responsive Design**: Optimized for all screen sizes
+- **Memoized Components**: useMemo and useCallback for optimization
 - **Clean Code**: Well-structured, maintainable codebase
+
+#### AG Grid Implementation
+- **Virtualization**: Disabled for small datasets to improve performance
+- **Memoized Column Definitions**: Prevents unnecessary re-creation
+- **Optimized Configuration**: Disabled unnecessary features for better speed
+- **Custom Cell Renderers**: Efficient custom components for allocation controls
+
+#### General Optimizations
+- **Responsive Design**: Optimized for all screen sizes
+- **Shared Utilities**: Common functions used by both implementations
+- **Type Safety**: TypeScript for better performance and maintainability
 
 ### Browser Support
 - Modern browsers (Chrome, Firefox, Safari, Edge)
