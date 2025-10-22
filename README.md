@@ -70,6 +70,50 @@ npm run test:coverage
 
 # Build for production
 npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+## 🌐 Deployment
+
+### GitHub Pages Deployment
+
+This project is configured for automatic deployment to GitHub Pages.
+
+#### Automated Deployment (Recommended)
+The project includes a GitHub Actions workflow that automatically deploys to GitHub Pages when you push to the `main` branch:
+
+1. Ensure GitHub Pages is enabled in your repository settings
+2. Go to Settings → Pages → Source
+3. Select "GitHub Actions" as the source
+4. Push to the `main` branch - deployment happens automatically!
+
+Your site will be available at: `https://<username>.github.io/HierarchicalTable/`
+
+#### Manual Deployment
+You can also deploy manually using the gh-pages package:
+
+```bash
+# Install dependencies (if not already installed)
+npm install
+
+# Build and deploy to gh-pages branch
+npm run deploy
+```
+
+Then configure GitHub Pages:
+1. Go to Settings → Pages
+2. Select the `gh-pages` branch as the source
+3. Set folder to `/ (root)`
+4. Save
+
+#### Local Preview
+To preview the production build locally:
+
+```bash
+npm run build
+npm run preview
 ```
 
 ## 🎯 Usage
